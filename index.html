@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SN's - Aroma Eksklusif Anda</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        /*
+        ========================================
+        PALET WARNA & PENGATURAN DASAR (NUANSA GELAP EKSKLUSIF)
+        ========================================
+        */
+        :root {
+            --color-primary: #007BFF; /* Aksen Biru Cerah */
+            --color-primary-dark: #0056b3;
+            --color-bg-dark: #121212;      /* Latar Belakang Utama (Sangat Gelap) */
+            --color-bg-secondary: #1a1a1a; /* Latar Belakang Bagian */
+            --color-card: #242424;         /* Latar Belakang Kartu */
+            --color-text-light: #f0f0f0;   /* Teks Utama (Putih Pudar) */
+            --color-text-muted: #aaa;      /* Teks Sekunder */
+            --color-border: #333;          /* Border Halus */
+            --max-width: 1200px;
+            --font-heading: 'Playfair Display', serif;
+            --font-body: 'Poppins', sans-serif;
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-body);
+            line-height: 1.7;
+            background-color: var(--color-bg-dark);
+            color: var(--color-text-light);
+        }
+
+        /*
+        ========================================
+        UTILITAS DAN KONTAINER
+        ========================================
+        */
+        .container {
+            width: 90%;
+            max-width: var(--max-width);
+            margin: 0 auto;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: var(--font-heading);
+            line-height: 1.3;
+            margin-bottom: 1.5rem;
+            color: var(--color-text-light);
+        }
+
+        h1 { font-size: 3.5rem; }
+        h2 { font-size: 2.8rem; text-align: center; }
+        h3 { font-size: 1.8rem; }
+        h4 { font-size: 1.2rem; }
+
+        p {
+            margin-bottom: 1.5rem;
+            color: var(--color-text-muted);
+            max-width: 700px;
+        }
+        
+        p.center {
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center;
+        }
+
+        a {
+            text-decoration: none;
+            color: var(--color-primary);
+        }
+
+        section {
+            padding: 6rem 0;
+        }
+        
+        section:nth-of-type(odd) {
+            background-color: var(--color-bg-secondary);
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-family: var(--font-body);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background-color: var(--color-primary);
+            color: var(--color-text-light);
+        }
+        .btn-primary:hover {
+            background-color: var(--color-primary-dark);
+            box-shadow: 0 5px 15px rgba(0, 123, 255, 0.3);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--color-text-light);
+            border: 2px solid var(--color-border);
+        }
+        .btn-secondary:hover {
+            background-color: var(--color-primary);
+            border-color: var(--color-primary);
+            color: var(--color-text-light);
+        }
+
+        /*
+        ========================================
+        HEADER DAN NAVIGASI
+        ========================================
+        */
+        .header {
+            background-color: rgba(18, 18, 18, 0.8); /* Latar belakang transparan */
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80px;
+        }
+
+        .nav-logo {
+            font-family: var(--font-heading);
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--color-primary);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 2.5rem;
+        }
+
+        .nav-links a {
+            font-weight: 500;
+            color: var(--color-text-light);
+            padding-bottom: 5px;
+            border-bottom: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--color-primary);
+            border-bottom-color: var(--color-primary);
+        }
+
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .hamburger .bar {
+            width: 25px;
+            height: 3px;
+            background-color: var(--color-text-light);
+            border-radius: 5px;
+            transition: all 0.3s ease-in-out;
+        }
+
+        /*
+        ========================================
+        HERO SECTION (S - Social Currency)
+        ========================================
+        */
+        #hero {
+            padding: 8rem 0;
+            text-align: center;
+            background-color: var(--color-bg-dark);
+        }
+
+        #hero h1 {
+            color: var(--color-text-light);
+            margin-bottom: 1.5rem;
+        }
+
+        #hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2.5rem;
+            color: var(--color-text-muted);
+        }
+
+        #hero .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        /*
+        ========================================
+        PRAKTIS (P - Practical Value)
+        ========================================
+        */
+        .praktis-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .praktis-card {
+            background-color: var(--color-card);
+            border: 1px solid var(--color-border);
+            border-radius: 10px;
+            padding: 2.5rem;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .praktis-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 25px rgba(0, 123, 255, 0.1);
+            border-color: var(--color-primary);
+        }
+
+        .praktis-card .icon-svg { /* Class baru untuk SVG ikon */
+            width: 50px; /* Ukuran ikon */
+            height: 50px;
+            fill: var(--color-primary); /* Warna ikon */
+            margin-bottom: 1rem;
+        }
+
+        .praktis-card h3 {
+            color: var(--color-primary);
+            font-family: var(--font-heading);
+            font-size: 1.8rem;
+        }
+        
+        .praktis-card p {
+            color: var(--color-text-muted);
+            font-size: 0.9rem;
+        }
+        
+        .praktis-card p strong {
+            color: var(--color-text-light); /* Membuat teks bold lebih terlihat */
+        }
+
+        /*
+        ========================================
+        EMOSI (R - Emotion)
+        ========================================
+        */
+        #stepps-emosi {
+            text-align: center;
+        }
+
+        #stepps-emosi p {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /*
+        ========================================
+        PUBLIK (E - Public / Testimoni)
+        ========================================
+        */
+        .testimoni-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .testimoni-card {
+            background: var(--color-card);
+            border: 1px solid var(--color-border);
+            border-radius: 10px;
+            padding: 2rem;
+        }
+
+        .testimoni-card blockquote {
+            font-size: 1.1rem;
+            font-style: italic;
+            color: var(--color-text-light);
+            margin-bottom: 1rem;
+            border-left: 3px solid var(--color-primary);
+            padding-left: 1rem;
+        }
+        
+        .testimoni-card cite {
+            font-weight: 600;
+            color: var(--color-primary);
+        }
+        
+        .testimoni-card cite strong {
+            color: var(--color-primary); /* Pastikan nama bold */
+        }
+
+        /*
+        ========================================
+        CERITA (S - Stories)
+        ========================================
+        */
+        .cerita-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+        
+        .cerita-content img {
+            width: 100%;
+            border-radius: 10px;
+            object-fit: cover;
+            max-height: 400px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        /*
+        ========================================
+        GALERI AROMA SECTION
+        ========================================
+        */
+        #galeri {
+            padding: 5rem 0;
+            text-align: center;
+        }
+
+        .galeri-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .galeri-item {
+            background-color: var(--color-card);
+            border: 1px solid var(--color-border);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .galeri-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 123, 255, 0.1);
+        }
+
+        .galeri-item img {
+            width: 100%;
+            height: 300px; /* Tinggi gambar konsisten */
+            object-fit: cover; /* Pastikan gambar mengisi area tanpa distorsi */
+            display: block;
+        }
+
+        .galeri-item .caption {
+            padding: 1.5rem;
+            color: var(--color-text-light);
+            font-weight: 600;
+            font-family: var(--font-heading);
+            font-size: 1.3rem;
+        }
+
+        /*
+        ========================================
+        PEMICU (T - Triggers / Koleksi)
+        ========================================
+        */
+        .koleksi-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+            align-items: stretch;
+        }
+
+        .koleksi-card {
+            background: var(--color-card);
+            border: 1px solid var(--color-border);
+            border-radius: 10px;
+            padding: 2.5rem;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .koleksi-card.highlight {
+            border: 3px solid var(--color-primary);
+            transform: scale(1.05);
+            position: relative;
+        }
+        
+        .koleksi-card.highlight::before {
+            content: 'Best Seller';
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--color-primary);
+            color: var(--color-text-light);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            font-family: var(--font-body);
+        }
+
+        .koleksi-card h3 {
+            color: var(--color-primary);
+            font-size: 2rem;
+        }
+
+        .koleksi-card .price {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--color-text-light);
+            margin: 1rem 0;
+            font-family: var(--font-heading);
+        }
+
+        .koleksi-card p.deskripsi-aroma {
+            color: var(--color-text-muted);
+            font-style: italic;
+            margin-bottom: 1.5rem;
+        }
+
+        .koleksi-card ul {
+            list-style: none; /* Hapus bullet/bintang */
+            margin: 1.5rem 0;
+            text-align: left;
+            flex-grow: 1;
+            padding-left: 0; /* Hapus padding default */
+        }
+
+        .koleksi-card li {
+            margin-bottom: 0.8rem;
+            position: relative;
+            font-size: 0.9rem;
+            color: var(--color-text-muted);
+        }
+        
+        .koleksi-card li strong {
+            color: var(--color-text-light);
+            font-weight: 600; /* Pastikan teks tebal */
+        }
+
+        .koleksi-card .btn {
+            margin-top: 1rem;
+        }
+
+        /*
+        ========================================
+        FOOTER (KONTAK)
+        ========================================
+        */
+        #kontak {
+            background-color: var(--color-bg-secondary);
+            color: var(--color-text-muted);
+            padding: 4rem 0 2rem 0;
+        }
+
+        #kontak h2 {
+            color: var(--color-text-light);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            text-align: left;
+            max-width: 800px;
+            margin: 2rem auto;
+        }
+        
+        .footer-content h4 {
+            color: var(--color-text-light);
+            font-size: 1.2rem;
+            border-bottom: 1px solid var(--color-primary);
+            padding-bottom: 5px;
+            display: inline-block;
+        }
+
+        .footer-content p,
+        .footer-content a {
+            color: var(--color-text-muted);
+            margin-bottom: 0.5rem;
+        }
+        
+        .footer-content a:hover {
+            color: var(--color-primary);
+        }
+        
+        .footer-content p strong {
+            color: var(--color-text-light);
+        }
+        
+        .copyright {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--color-border);
+            font-size: 0.9rem;
+        }
+
+        /*
+        ========================================
+        RESPONSIVE DESIGN
+        ========================================
+        */
+        @media (max-width: 992px) {
+            h1 { font-size: 2.8rem; }
+            h2 { font-size: 2.2rem; }
+            
+            .koleksi-grid {
+                grid-template-columns: 1fr;
+            }
+            .koleksi-card {
+                margin-bottom: 2rem;
+            }
+            .koleksi-card.highlight {
+                transform: scale(1);
+                margin-bottom: 4rem;
+            }
+            .cerita-content {
+                grid-template-columns: 1fr;
+            }
+            .cerita-content img {
+                order: -1; /* Pindah gambar ke atas di mobile */
+            }
+            .galeri-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            h1 { font-size: 2.2rem; }
+            h2 { font-size: 1.8rem; }
+
+            /* Penyesuaian Navigasi Hamburger */
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 80px;
+                left: 0;
+                width: 100%;
+                background-color: var(--color-bg-secondary);
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-links li {
+                margin: 0;
+                width: 100%;
+            }
+
+            .nav-links a {
+                display: block;
+                padding: 1rem;
+                text-align: center;
+                width: 100%;
+                border-bottom: 1px solid var(--color-border);
+            }
+            
+            .nav-links a:hover,
+            .nav-links a.active {
+                border-bottom: 1px solid var(--color-border);
+                background-color: var(--color-card);
+            }
+
+            .hamburger {
+                display: flex;
+            }
+            
+            /* Animasi Hamburger */
+            .hamburger.active .bar:nth-child(2) {
+                opacity: 0;
+            }
+            .hamburger.active .bar:nth-child(1) {
+                transform: translateY(8px) rotate(45deg);
+            }
+            .hamburger.active .bar:nth-child(3) {
+                transform: translateY(-8px) rotate(-45deg);
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            .footer-content .kontak-info,
+            .footer-content .lokasi-info {
+                text-align: center;
+            }
+            .footer-content h4 {
+                display: block;
+                margin: 0 auto 1rem auto;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <nav class="navbar container">
+            <a href="#" class="nav-logo">SN's</a>
+            
+            <ul class="nav-links">
+                <li><a href="#stepps-praktis">Keunggulan</a></li>
+                <li><a href="#stepps-emosi">Emosi</a></li>
+                <li><a href="#stepps-publik">Testimoni</a></li>
+                <li><a href="#stepps-cerita">Cerita Kami</a></li>
+                <li><a href="#galeri">Galeri</a></li>
+                <li><a href="#stepps-pemicu">Koleksi</a></li>
+                <li><a href="#kontak">Kontak</a></li>
+            </ul>
+
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section id="hero">
+            <div class="container">
+                <h1>Jadilah Salah Satu yang Eksklusif.</h1>
+                <p>SN's bukan sekadar parfum. Ini adalah pernyataan status. Dapatkan aroma yang mendefinisikan siapa Anda—sebelum orang lain melakukannya.</p>
+                <div class="cta-buttons">
+                    <a href="#stepps-pemicu" class="btn btn-primary">Temukan Aroma Khas Anda</a>
+                    <a href="#stepps-cerita" class="btn btn-secondary">Cerita Kami</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="stepps-praktis">
+            <div class="container">
+                <h2>Nilai Praktis dalam Kemewahan</h2>
+                <p class="center">Kami memadukan seni dengan sains. Setiap botol SN's adalah jaminan kualitas yang dapat Anda rasakan.</p>
+                <div class="praktis-grid">
+                    <div class="praktis-card">
+                        <svg class="icon-svg" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-.99-14h1.98v6.01L17.5 14.5l-1.41 1.41-3.6-3.6V6z" /></svg>
+                        <h3>Daya Tahan 12+ Jam</h3>
+                        <p>Racikan <strong>extrait de parfum</strong> kami memastikan aroma bertahan menemani Anda sepanjang hari.</p>
+                    </div>
+                    <div class="praktis-card">
+                        <svg class="icon-svg" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5S13.38 11.5 12 11.5z" /></svg>
+                        <h3>Bahan Baku Terbaik</h3>
+                        <p>Diimpor langsung dari Grasse, Prancis. Hanya esensi terbaik untuk kualitas aroma premium.</p>
+                    </div>
+                    <div class="praktis-card">
+                        <svg class="icon-svg" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 3h18v2H3V3zm0 8h18v2H3v-2zm0 8h18v2H3v-2z" /></svg>
+                        <h3>Aroma Khas (Sillage)</h3>
+                        <p>Tinggalkan jejak aroma yang unik dan berkarakter ke mana pun Anda pergi.</p>
+                    </div>
+                    <div class="praktis-card">
+                        <svg class="icon-svg" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V11.99H5V6.3l7-3.11v8.8z" /></svg>
+                        <h3>Desain Botol Mewah</h3>
+                        <p>Botol kaca tebal dengan tutup magnetik, dirancang untuk menambah kemewahan meja rias Anda.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="stepps-emosi">
+            <div class="container">
+                <h2>Bangkitkan Emosi, Ciptakan Kenangan</h2>
+                <p>Aroma adalah mesin waktu. Satu semprotan 'Noir' membawa Anda kembali ke malam tak terlupakan. Satu hirupan 'Azure' adalah janji petualangan baru. Kami tidak menjual parfum; kami menjual perasaan.</p>
+                <a href="#stepps-pemicu" class="btn btn-primary">Temukan Perasaan Anda</a>
+            </div>
+        </section>
+
+        <section id="stepps-publik">
+            <div class="container">
+                <h2>Dilihat. Diakui. Diinginkan.</h2>
+                <p class="center">Jangan hanya percaya kata kami. Lihat apa yang mereka katakan tentang menjadi pusat perhatian.</p>
+                <div class="testimoni-grid">
+                    <div class="testimoni-card">
+                        <blockquote>"Saya tidak pernah menyangka akan ditanya berkali-kali soal parfum. SN's 'Noir' benar-benar 'game changer'. Aromanya mewah dan sangat maskulin."</blockquote>
+                        <cite>— <strong>Rian D.</strong>, Jakarta</cite>
+                    </div>
+                    <div class="testimoni-card">
+                        <blockquote>"Akhirnya menemukan wangi yang 'saya banget'. 'Lumière' itu lembut tapi berkarakter. Tahan lama seharian di kantor ber-AC. Suka sekali!"</blockquote>
+                        <cite>— <strong>Amanda S.</strong>, Surabaya</cite>
+                    </div>
+                    <div class="testimoni-card">
+                        <blockquote>"Saya beli 'Azure' untuk suami saya. Sekarang saya ingin dia memakainya setiap saat. Aromanya segar tapi tetap 'mahal'. Pelayanannya juga cepat."</blockquote>
+                        <cite>— <strong>L.K.</strong>, Medan</cite>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="stepps-cerita">
+            <div class="container cerita-content">
+                <div class="cerita-teks">
+                    <h2>Cerita di Balik Setiap Semprotan</h2>
+                    <p>SN's lahir dari sebuah pencarian: menemukan aroma yang menceritakan sebuah kisah tanpa mengucapkan sepatah kata pun. Bukan sekadar wangi, tapi sebuah identitas.</p>
+                    <p>Dari pasar rempah eksotis di Timur hingga kebun bunga tersembunyi di Eropa, setiap botol adalah bab dari perjalanan kami untuk menemukan racikan paling sempurna untuk Anda.</p>
+                    <a href="#kontak" class="btn btn-secondary">Konsultasi Aroma Personal</a>
+                </div>
+                <div class="cerita-gambar">
+                    <img src="Gemini_Generated_Image_dl6jcfdl6jcfdl6j (1).png" alt="Parfum SN's Noir Eksklusif">
+                </div>
+            </div>
+        </section>
+
+        <section id="galeri">
+            <div class="container">
+                <h2>Ekspresikan Diri Anda</h2>
+                <p class="center">Visualisasi keindahan aroma SN's. Sebuah karya seni dalam setiap tetes.</p>
+                <div class="galeri-grid">
+                    <div class="galeri-item">
+                        <img src="Gemini_Generated_Image_dl6jcfdl6jcfdl6j.png" alt="Parfum SN's Azure"> 
+                        <div class="caption">SN's Azure: Kesegaran yang Memikat</div>
+                    </div>
+                    <div class="galeri-item">
+                        <img src="Gemini_Generated_Image_dl6jcfdl6jcfdl6j (1).png" alt="Parfum SN's Noir">
+                        <div class="caption">SN's Noir: Elegansi yang Mendalam</div>
+                    </div>
+                    <div class="galeri-item">
+                        <img src="Gemini_Generated_Image_1av0x01av0x01av0.png" alt="Parfum SN's Lumière">
+                        <div class="caption">SN's Lumière: Kelembutan yang Berkelas</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="stepps-pemicu">
+            <div class="container">
+                <h2>Aroma Khas untuk Momen Khas Anda</h2>
+                <p class="center">Temukan pemicu percaya diri Anda. Parfum yang tepat untuk momen yang tepat.</p>
+                <div class="koleksi-grid">
+                    <div class="koleksi-card">
+                        <div>
+                            <h3>SN's 'Azure'</h3>
+                            <div class="price">Rp 850K</div>
+                            <p class="deskripsi-aroma">Segar, Dinamis, Berkarisma.</p>
+                            <ul>
+                                <li><strong>Top Notes:</strong> Bergamot, Lemon</li>
+                                <li><strong>Mid Notes:</strong> Sea Salt, Jasmine</li>
+                                <li><strong>Base Notes:</strong> Cedarwood</li>
+                                <li><strong>Pemicu:</strong> Energi pagi, rapat penting, aktivitas luar ruang.</li>
+                            </ul>
+                        </div>
+                        <a href="#kontak" class="btn btn-primary">Pesan Azure Sekarang</a>
+                    </div>
+                    <div class="koleksi-card highlight">
+                        <div>
+                            <h3>SN's 'Noir'</h3>
+                            <div class="price">Rp 1.150K</div>
+                            <p class="deskripsi-aroma">Misterius, Hangat, Memikat.</p>
+                            <ul>
+                                <li><strong>Top Notes:</strong> Black Pepper, Cardamom</li>
+                                <li><strong>Mid Notes:</strong> Sandalwood, Oud</li>
+                                <li><strong>Base Notes:</strong> Vanilla, Amber</li>
+                                <li><strong>Pemicu:</strong> Acara malam, kencan spesial, saat Anda ingin memimpin.</li>
+                            </ul>
+                        </div>
+                        <a href="#kontak" class="btn btn-primary">Beli Noir (Best Seller)</a>
+                    </div>
+                    <div class="koleksi-card">
+                        <div>
+                            <h3>SN's 'Lumière'</h3>
+                            <div class="price">Rp 990K</div>
+                            <p class="deskripsi-aroma">Lembut, Elegan, Tenang.</p>
+                            <ul>
+                                <li><strong>Top Notes:</strong> Peony, Lychee</li>
+                                <li><strong>Mid Notes:</strong> Rose, Magnolia</li>
+                                <li><strong>Base Notes:</strong> White Musk</li>
+                                <li><strong>Pemicu:</strong> Akhir pekan santai, brunch, 'My Scent But Better'.</li>
+                            </ul>
+                        </div>
+                        <a href="#kontak" class="btn btn-secondary">Dapatkan Lumière</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer id="kontak">
+        <div class="container">
+            <h2 style="text-align: center;">Hubungi Kami</h2>
+            <p class="center">Siap menemukan aroma khas Anda? Hubungi konsultan kami.</p>
+            <div class="footer-content">
+                <div class="kontak-info">
+                    <h4>Informasi Kontak</h4>
+                    <p><strong>Nama:</strong> Syauqi Muhammad</p>
+                    <p><strong>Email:</strong> <a href="mailto:syauqi.ayo@gmail.com">syauqi.ayo@gmail.com</a></p>
+                    <p><strong>Telp:</strong> <a href="tel:081390623962">081390623962</a></p>
+                </div>
+                <div class="lokasi-info">
+                    <h4>Kunjungi Showroom Kami</h4>
+                    <p>Rasakan langsung kemewahan aroma SN's di lokasi kami.</p>
+                    <p><strong>Koordinat:</strong> -6.355245, 106.811039</p>
+                    <a href="https://www.google.com/maps/search/?api=1&query=-6.355245,106.811039" target="_blank" rel="noopener noreferrer">Buka di Google Maps</a>
+                </div>
+            </div>
+            <p class="copyright">© 2025 SN's Premium Parfum. Hak Cipta Dilindungi.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Script minimal untuk fungsionalitas menu hamburger
+        document.addEventListener('DOMContentLoaded', function() {
+            const hamburger = document.querySelector('.hamburger');
+            const navLinks = document.querySelector('.nav-links');
+
+            // Toggle menu saat hamburger di-klik
+            hamburger.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+                hamburger.classList.toggle('active');
+            });
+
+            // Tutup menu saat salah satu link di-klik
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.addEventListener('click', () => {
+                    if (navLinks.classList.contains('active')) {
+                        navLinks.classList.remove('active');
+                        hamburger.classList.remove('active');
+                    }
+                });
+            });
+        });
+    </script>
+
+</body>
+</html>
